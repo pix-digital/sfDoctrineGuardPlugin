@@ -1,5 +1,4 @@
-sfDoctrineGuardPlugin (for symfony 1.4)
-=======================================
+# sfGuardDoctrine plugin (for symfony 1.4) #
 
 The `sfDoctrineGuardPlugin` is a symfony plugin that provides authentication and
 authorization features above and beyond the standard security features of symfony.
@@ -8,9 +7,9 @@ It gives you the model (user, group and permission objects) and the modules
 (backend and frontend) to secure your symfony application in a minute in
 a configurable plugin.
 
-Beginning with version 5.0.0 (the 1.4 stable branch), `sfDoctrineGuardPlugin` also
+Beginning with version 5.0.0 (the 1.4 stable branch), `sfDoctrineGuardPlugin` also 
 provides the option of applying for an account through the site (this is disabled
-by default), and the ability to reset your password if you have forgotten it.
+by default), and the ability to reset your password if you have forgotten it. 
 For security, password reset requires that you know the email address associated with the
 account and be able to receive mail there. However applying for an account does not yet require receiving
 an email message in 5.0.0.
@@ -24,18 +23,18 @@ The 5.x series can require significant migration effort when moving from earlier
         symfony plugin:install sfDoctrineGuardPlugin
 
   * Install the plugin (via a Subversion checkout)
-
+  
         svn co http://svn.symfony-project.com/plugins/sfDoctrineGuardPlugin/trunk plugins/sfDoctrineGuardPlugin
 
   * Activate the plugin in the `config/ProjectConfiguration.class.php`
-
+  
         [php]
         class ProjectConfiguration extends sfProjectConfiguration
         {
           public function setup()
           {
             $this->enablePlugins(array(
-              'sfDoctrinePlugin',
+              'sfDoctrinePlugin', 
               'sfDoctrineGuardPlugin',
               '...'
             ));
@@ -97,13 +96,13 @@ The 5.x series can require significant migration effort when moving from earlier
 
 ### Upgrading ###
 
-The 5.0.x series adds several new tables, adds columns to existing tables and changes the names of all of the relations in the schema.
+The 5.0.x series adds several new tables, adds columns to existing tables and changes the names of all of the relations in the schema. 
 
 This requires changes of two kinds: database schema changes and, in some cases, changes to your code. We'll look at each of these issues in turn.
 
 #### Updating your Schema ####
 
-There are three basic changes in the schema:
+There are three basic changes in the schema: 
 
   * All primary key ID columns have been changed to 8-byte integers
   * New columns in the `sfGuardUser` table, which now contains `first_name`, `last_name` and `email_address` information
@@ -157,7 +156,7 @@ First rebuild your model, form and filter base classes. This will not damage any
 
 		./symfony doctrine:build --all-classes
 
-Second, check your Doctrine code for places where you use the relations that are defined for `sfGuardUser`, `sfGuardGroup`, etc. The names of these relations have been changed for convenience and to follow Symfony best practices.
+Second, check your Doctrine code for places where you use the relations that are defined for `sfGuardUser`, `sfGuardGroup`, etc. The names of these relations have been changed for convenience and to follow Symfony best practices. 
 
 The most frequently used relations that have changed are:
 
@@ -182,7 +181,7 @@ To secure a symfony application:
 
         login_module:           sfGuardAuth
         login_action:           signin
-
+        
         secure_module:          sfGuardAuth
         secure_action:          secure
 
@@ -197,11 +196,11 @@ To secure a symfony application:
         sf_guard_signin:
           url:   /login
           param: { module: sfGuardAuth, action: signin }
-
+        
         sf_guard_signout:
           url:   /logout
           param: { module: sfGuardAuth, action: signout }
-
+        
         sf_guard_register:
           url:   /register
           param: { module: sfGuardRegister, action: index }
@@ -296,9 +295,9 @@ If you want to customize or add methods to the sfGuardAuth:
     as it can't be autoloaded by symfony)
 
         <?php
-
+    
         require_once(sfConfig::get('sf_plugins_dir').'/sfDoctrineGuardPlugin/modules/sfGuardAuth/lib/BasesfGuardAuthActions.class.php');
-
+    
         class sfGuardAuthActions extends BasesfGuardAuthActions
         {
           public function executeNewAction()
@@ -415,4 +414,3 @@ You can change the redirect settings in `app.yml`:
       sf_guard_plugin:
         success_signin_url:      @my_route?param=value # the plugin uses the referer as default
         success_signout_url:     module/action         # the plugin uses the referer as default
-
