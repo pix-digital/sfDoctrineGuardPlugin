@@ -1,0 +1,4 @@
+sfDoctrineGuardPlugin
+=====================
+
+Fork from sfDoctrineGuardPlugin
